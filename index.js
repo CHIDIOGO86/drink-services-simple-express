@@ -12,7 +12,7 @@ app.listen(PORT, () =>{
 const dataBase = [
    {
     iD: 1,
-    productName: "apple" ,
+    productName: "apple",
     price: "$1000",
     amount: 100
 },
@@ -29,7 +29,7 @@ const dataBase = [
     amount: 80
 }
 
-]
+];
 app.get("/api/v1/welcomepage", (req, res) => {
     return res.status(200).json({ message: "welcome to my app. " })
     
@@ -55,8 +55,9 @@ app.post("/api/v1/products", (req, res) =>{
     if(!product){
         return res.status(400).json({message: "product upload failed"})
     }
-    dataBase.push(product)
+    dataBase.push(product) //.push adds a new element into an array
     return res.status(200).json({messge: "product succfully uploaded", product: dataBase, productCount:dataBase.length})
+    // .length shows the total no of elements in an array
 })
 app.put("/api/v1/users", (req,res) => {
     const {name,email} = req.headers
@@ -64,7 +65,7 @@ app.put("/api/v1/users", (req,res) => {
         return res.status(404).json ({ message: "user not found" })
     } else {
         return res.status(200).json({message: "user updated", userName: name, email: email})
-    }
+    };
 
 });
 app.delete("/api/v1/users", (req, res) =>{
@@ -75,7 +76,8 @@ app.delete("/api/v1/users", (req, res) =>{
 
     const result = dataBase.find(({ iD }) => iD == productId)
 
-    dataBase.splice(dataBase.indexOf(result),1)
+    dataBase.splice(dataBase.indexOf(result),1,{iD:3}) // .indexOf returns the index of a particular element in an array
+
     //splice takes 2 parameters and 1 optional parameter,the index of the element to be deleted in the array and
     // specify the quantity to be deleted
     //the replacement of the element  that was deleted. this is optional
@@ -84,4 +86,3 @@ app.delete("/api/v1/users", (req, res) =>{
     return res.status(200).json({messge: "product succfully deleted", product: dataBase, productCount:dataBase.length})
 })
     
-
